@@ -12,7 +12,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Navbar from './component/Navbar';
 import Dashboard from './component/Dashboard';
 import Product from './component/Product';
+import Ackno from './component/Ackno';
 import Notfound from './component/Notfound';
+import Createproduct from './component/Createproduct';
+import Createbatches from './component/Createbatches';
 
 
 function App() {
@@ -36,6 +39,9 @@ function App() {
                     <Route path="/navbar" element={<Navbar />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/product" element={<Product />} />
+                    <Route path="/ackno" element={<Ackno />} />
+                    <Route path="/createProduct" element={<Createproduct />} />
+                    <Route path="/createBatch" element={<Createbatches />} />
                     <Route path="*" element={<Notfound   />} />
                     
                 </Routes>

@@ -73,6 +73,8 @@ export default function Product() {
                                     </form>
                                 </div>
 
+                                
+
                                 {/* create batches */}
 
                                 <div className="create-batches-form col-md-6">
