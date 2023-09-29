@@ -1,0 +1,14 @@
+/* #product-container{
+
+} */
+
+#product-selection{
+    width: 32vw;
+}
+
+#product-form-container{
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    justify-content: space-around;
+}

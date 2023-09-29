@@ -1,0 +1,17 @@
+#register-container{
+    width: 100vw;
+    height: 100vh;
+    /* background-image: linear-gradient(to bottom right ,rgb(241, 234, 221) , rgb(237, 222, 222)); */
+}
+
+#register-image{
+    width: 500px;
+}
+
+#register-sub-container{
+    width: 80vw;
+    box-shadow: 2px 2px 4px grey;
+    min-height: 60vh;
+    /* background-color: rgb(224, 212, 212); */
+    /* background-color: rgb(233, 229, 220); */
+}

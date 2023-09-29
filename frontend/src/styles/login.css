@@ -1,0 +1,16 @@
+#login-container{
+    width: 100vw;
+    height: 100vh;
+    background-image: linear-gradient(to bottom right , rgb(204, 224, 238) , white , rgb(212, 235, 204));
+}
+
+#login-image{
+    width: 500px;
+}
+
+#login-sub-container{
+    width: 80vw;
+    box-shadow: 2px 2px 4px grey;
+    height: 60vh;
+    background-color: rgb(233, 242, 242);
+}
