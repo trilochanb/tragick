@@ -16,6 +16,11 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token['username'] = user.username
         token['email'] = user.email
+        token['first_name'] = user.first_name
+        token['last_name'] = user.last_name
+        token['vendor_name'] = user.vendor_name
+        token['balance'] = user.balance
+        print(token)
 
         return token
 
@@ -60,4 +65,4 @@ class RegisterSerializer(serializers.ModelSerializer):
 class VendorDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
-        fields = ('id', 'first_name', 'email', 'last_name', 'vendor_name', 'location_lat', 'location_long')
+        fields = ('id', 'first_name', 'email', 'last_name', 'vendor_name', 'location_lat', 'location_long', 'balance')
