@@ -8,14 +8,13 @@ from .models import Product, ProductInstance, Acknowledgement, ProductBatch
 from utils.pagination import CustomPagination
 from accounts.models import Vendor
 from utils.blockchain.endpoints import mintNFT, associateNFT, transferNFT, transferBalance, getBalance
-
-
+from .permissions import IsProductOwnerPermission, IsInstanceOwnerPermission, ObjectLevelPermissionMixin
 
 
 class ProductGenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin,
                             mixins.CreateModelMixin,
                             mixins.UpdateModelMixin, mixins.DestroyModelMixin):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (IsProductOwnerPermission, IsInstanceOwnerPermission)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     pagination_class = CustomPagination
@@ -25,6 +24,8 @@ class ProductGenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixi
             return self.retrieve(request, pk)
 
         queryset = self.queryset
+        user = request.user
+        queryset = queryset.filter(owner=user)
         page = self.paginate_queryset(queryset)
 
         if page is not None:
@@ -49,10 +50,10 @@ class ProductGenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixi
         return self.destroy(request, pk)
 
 
-class ProductInstanceGenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin,
+class ProductInstanceGenericAPIView(ObjectLevelPermissionMixin, generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin,
                                     mixins.CreateModelMixin,
                                     mixins.UpdateModelMixin, mixins.DestroyModelMixin):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, IsProductOwnerPermission)
     queryset = ProductInstance.objects.all()
     serializer_class = ProductInstanceSerializer
     pagination_class = CustomPagination
@@ -62,6 +63,8 @@ class ProductInstanceGenericAPIView(generics.GenericAPIView, mixins.ListModelMix
             return self.retrieve(request, pk)
 
         queryset = self.queryset
+        user = request.user
+        queryset = queryset.filter(owner=user)
         page = self.paginate_queryset(queryset)
 
         if page is not None:
@@ -86,7 +89,7 @@ class ProductInstanceGenericAPIView(generics.GenericAPIView, mixins.ListModelMix
         return self.destroy(request, pk)
 
 
-class AcknowledgementGenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin,
+class AcknowledgementGenericAPIView(ObjectLevelPermissionMixin, generics.GenericAPIView, mixins.ListModelMixin, mixins.RetrieveModelMixin,
                                     mixins.CreateModelMixin,
                                     mixins.UpdateModelMixin, mixins.DestroyModelMixin):
     queryset = Acknowledgement.objects.all()
@@ -99,6 +102,8 @@ class AcknowledgementGenericAPIView(generics.GenericAPIView, mixins.ListModelMix
             return self.retrieve(request, pk)
 
         queryset = self.queryset
+        user = request.user
+        queryset = queryset.filter(owner=user)
         page = self.paginate_queryset(queryset)
 
         if page is not None:
@@ -110,7 +115,7 @@ class AcknowledgementGenericAPIView(generics.GenericAPIView, mixins.ListModelMix
             return Response({'data': serializer.data})
 
     def post(self, request):
-        vendor_id = request.data.get('vendor', None)
+        vendor_id = request.data.get('owner', None)
         vendor = Vendor.objects.get(id=vendor_id)
         instance_id = request.data.get('instance', None)
         instance = ProductInstance.objects.get(id=instance_id)
