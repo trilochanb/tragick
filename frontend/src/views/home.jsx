@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
-import Navbar from '../component/Navbar';
+import Navbar from '../component/Balance.jsx';
 
 const Home = () => {
     const [isLoggedIn, user] = useAuthStore((state) => [

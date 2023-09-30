@@ -16,3 +16,11 @@
 #nav-container{
     width: 100vw;
 }
+
+
+.status {
+    margin: 0 20px;
+    padding: 20px;
+    font-size: 30px;
+    border-radius: 10px;
+}

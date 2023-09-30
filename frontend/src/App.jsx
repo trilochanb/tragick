@@ -9,12 +9,15 @@ import Private from './views/private';
 import Register from './views/register';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
-import Navbar from './component/Navbar';
-import Dashboard from './component/Dashboard';
+import Navbar from './component/Balance.jsx';
+import Dashboard from './component/Sidebar.jsx';
 import Product from './component/Product';
 import Ackno from './component/Ackno';
 import CreateInstance from './component/CreateInstance';
 import Notfound from './component/Notfound';
+import Sidebar from "./component/Sidebar.jsx";
+import ShowProduct from "./component/Showproduct.jsx";
+import ShowInstances from "./component/ShowInstances.jsx";
 
 
 function App() {
@@ -36,12 +39,14 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/navbar" element={<Navbar />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/sidebar" element={<Sidebar />} />
                     <Route path="/product" element={<Product />} />
                     <Route path="/ackno" element={<Ackno />} />
                     <Route path="/instance" element={<CreateInstance />} />
-                    <Route path="*" element={<Notfound   />} />
-                    
+                    <Route path="*" element={<Notfound/>} />
+                    <Route path="/all-products" element={<ShowProduct/>}/>
+                    <Route path="/all-instances" element={<ShowInstances/>}/>
+                    <Route path="*" element={<Notfound />} />
                 </Routes>
             </MainWrapper>
         </BrowserRouter>

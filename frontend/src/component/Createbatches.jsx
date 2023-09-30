@@ -41,11 +41,9 @@ export default function CreateBatches() {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card p-4">
-            <h2 className="card-title text-center mb-4">Create Batches</h2>
+    <div className="container-fluid mt-5">
+
+          <div className="p-4">
             <form onSubmit={handleCreateBatch}>
               <div className="mb-3">
                 <label htmlFor="productSelection" className="form-label">
@@ -107,8 +105,6 @@ export default function CreateBatches() {
               </div>
             </form>
           </div>
-        </div>
-      </div>
     </div>
   );
 }

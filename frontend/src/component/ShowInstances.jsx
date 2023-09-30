@@ -4,26 +4,22 @@ import useAxios from '../utils/useAxios';
 import Dashboard from "./Sidebar.jsx";
 import Balance from "./Balance.jsx";
 
-export default function ShowProduct() {
+export default function ShowInstances() {
     const [isLoggedIn, user] = useAuthStore((state) => [
         state.isLoggedIn,
         state.user,
     ]);
 
-    const [products, setProducts] = useState([]);
+    const [instances, setInstances] = useState([]);
     const api = useAxios();
 
     useEffect(() => {
-        const getProducts = async () => {
-            const response = await api.get('products/');
-            setProducts(response.data.data);
+        const getInstances = async () => {
+            const response = await api.get('instances/');
+            setInstances(response.data.data);
         };
-        getProducts();
+        getInstances();
     }, []);
-
-    const handleOnClick = () => {
-        // Handle button click here
-    };
 
     return (
         <>
@@ -38,26 +34,25 @@ export default function ShowProduct() {
                             <table className="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Id</th>
+                                    <th scope="col">Instance Id</th>
                                     <th scope="col">Owner</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Token Id</th>
-                                    <th scope="col">Created At</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Serial Number</th>
+                                    <th scope="col">Created at</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {products.map((element, index) => (
+                                {instances.map((element, index) => (
                                     <tr key={index}>
                                         <th scope="row">{element.id}</th>
                                         <td>{element.owner}</td>
-                                        <td>{element.name}</td>
-                                        <td>{element.token_id}</td>
+                                        <td>{element.price}</td>
+                                        <td>{element.serial_no}</td>
                                         <td>{element.created_at}</td>
                                         <td>
                                             <button
                                                 className="btn btn-primary"
-                                                onClick={handleOnClick}
                                             >
                                                 View
                                             </button>
