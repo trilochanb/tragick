@@ -3,6 +3,7 @@ import {useAuthStore} from '../store/auth';
 import useAxios from '../utils/useAxios';
 import Dashboard from "./Sidebar.jsx";
 import Balance from "./Balance.jsx";
+import ModalButton from './QRModal';
 
 export default function ShowInstances() {
     const [isLoggedIn, user] = useAuthStore((state) => [
@@ -51,11 +52,7 @@ export default function ShowInstances() {
                                         <td>{element.serial_no}</td>
                                         <td>{element.created_at}</td>
                                         <td>
-                                            <button
-                                                className="btn btn-primary"
-                                            >
-                                                View
-                                            </button>
+                                           <ModalButton modalContent={element}/>
                                         </td>
                                     </tr>
                                 ))}
@@ -66,6 +63,5 @@ export default function ShowInstances() {
                 </div>
             </div>
         </>
-
     );
 }
