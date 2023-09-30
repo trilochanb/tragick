@@ -1,0 +1,12 @@
+.parent
+{
+    height : 300px ;
+overflow: hidden;
+}
+
+.child
+{
+    max-height: 100%;
+    overflow-y: scroll;
+}
+

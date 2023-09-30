@@ -35,9 +35,16 @@ function MyVerticallyCenteredModal(props) {
         >
             <Modal.Header closeButton>
             </Modal.Header>
-            <Modal.Body className='d-flex justify-content-center align-items-center'>
-                <button className='btn btn-success' onClick={handleBuyProduct}>Buy</button>
-            </Modal.Body>
+            <div className="card">
+                <div className="card-header">
+                    Featured
+                </div>
+                <div className="card-body">
+                    <h5 className="card-title">Special title treatment</h5>
+                    <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" className="btn btn-primary" onClick={handleBuyProduct}>Buy</a>
+                </div>
+            </div>
         </Modal>
     );
 }
@@ -45,7 +52,6 @@ function MyVerticallyCenteredModal(props) {
 function BuyModal({ modalContent }) {
     const [modalShow, setModalShow] = useState(true);
     const navigate = useNavigate();
-
     const handleCloseModal = () => {
         setModalShow(false);
         navigate('/acknowledgement'); 
@@ -53,7 +59,6 @@ function BuyModal({ modalContent }) {
 
     return (
         <>
-           
             <MyVerticallyCenteredModal
                 show={modalShow}
                 onHide={handleCloseModal} 

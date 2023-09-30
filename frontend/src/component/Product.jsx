@@ -18,7 +18,6 @@ export default function Product() {
                 </div>
                 <div className="col-md-10">
                     <Balance className="align-self-start" />
-
                     <div className="container my-5 mt-3">
                         <div className="p-3 bg-body-tertiary rounded-3 row mt-3 p-5">
                             {/* Create Product */}
