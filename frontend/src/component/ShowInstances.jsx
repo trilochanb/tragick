@@ -14,10 +14,30 @@ export default function ShowInstances() {
     const [instances, setInstances] = useState([]);
     const api = useAxios();
 
+    async function owner(owner_id) {
+        try {
+            const response = await api.get(`users/${owner_id}`);
+            return response.data['vendor_name'];
+        } catch (error) {
+            console.error('Error fetching owner:', error);
+            return 'N/A';
+        }
+    }
+
     useEffect(() => {
         const getInstances = async () => {
-            const response = await api.get('instances/');
-            setInstances(response.data.data);
+            try {
+                const response = await api.get('instances/');
+                const instancesWithOwnerNames = await Promise.all(
+                    response.data.data.map(async (instance) => ({
+                        ...instance,
+                        owner: await owner(instance.owner),
+                    }))
+                );
+                setInstances(instancesWithOwnerNames);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
         };
         getInstances();
     }, []);
@@ -32,7 +52,7 @@ export default function ShowInstances() {
                     <div className="col-md-10 d-flex flex-column ">
                         <Balance className="align-self-start"/>
                         <div className="container mt-5">
-                            <table className="table table-striped">
+                            <table className="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th scope="col">Instance Id</th>
@@ -46,7 +66,7 @@ export default function ShowInstances() {
                                 <tbody>
                                 {instances.map((element, index) => (
                                     <tr key={index}>
-                                        <th scope="row">{element.id}</th>
+                                        <th scope="row">{element.id.substring(0, 3)}</th>
                                         <td>{element.owner}</td>
                                         <td>{element.price}</td>
                                         <td>{element.serial_no}</td>

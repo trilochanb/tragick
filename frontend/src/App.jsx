@@ -10,14 +10,13 @@ import Register from './views/register';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Navbar from './component/Balance.jsx';
-import Dashboard from './component/Sidebar.jsx';
 import Product from './component/Product';
-import Ackno from './component/Ackno';
 import CreateInstance from './component/CreateInstance';
 import Notfound from './component/Notfound';
 import Sidebar from "./component/Sidebar.jsx";
 import ShowProduct from "./component/Showproduct.jsx";
 import ShowInstances from "./component/ShowInstances.jsx";
+import {CreateAcknowledgement} from './component/CreateAcknowledgement';
 
 
 function App() {
@@ -41,11 +40,12 @@ function App() {
                     <Route path="/navbar" element={<Navbar />} />
                     <Route path="/sidebar" element={<Sidebar />} />
                     <Route path="/product" element={<Product />} />
-                    <Route path="/ackno" element={<Ackno />} />
+                    {/* <Route path="/ackno" element={<Ackno />} /> */}
                     <Route path="/instance" element={<CreateInstance />} />
                     <Route path="*" element={<Notfound/>} />
                     <Route path="/all-products" element={<ShowProduct/>}/>
                     <Route path="/all-instances" element={<ShowInstances/>}/>
+                    <Route path="/acknowledgement" element={<CreateAcknowledgement/>}/>
                     <Route path="*" element={<Notfound />} />
                 </Routes>
             </MainWrapper>

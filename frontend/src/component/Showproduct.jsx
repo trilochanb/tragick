@@ -13,13 +13,35 @@ export default function ShowProduct() {
     const [products, setProducts] = useState([]);
     const api = useAxios();
 
+    async function owner(owner_id) {
+        try {
+            const response = await api.get(`users/${owner_id}`);
+            return response.data['vendor_name'];
+        } catch (error) {
+            console.error('Error fetching owner:', error);
+            return 'N/A';
+        }
+    }
+
     useEffect(() => {
         const getProducts = async () => {
-            const response = await api.get('products/');
-            setProducts(response.data.data);
+            try {
+                const response = await api.get('products/');
+                const productsWithOwnerNames = await Promise.all(
+                    response.data.data.map(async (product) => ({
+                        ...product,
+                        owner: await owner(product.owner),
+                    }))
+                );
+                setProducts(productsWithOwnerNames);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
         };
         getProducts();
     }, []);
+
+
 
     const handleOnClick = () => {
         // Handle button click here
@@ -35,7 +57,7 @@ export default function ShowProduct() {
                     <div className="col-md-10 d-flex flex-column ">
                         <Balance className="align-self-start"/>
                         <div className="container mt-5">
-                            <table className="table table-striped">
+                            <table className="table table-striped table-bordered">
                                 <thead>
                                 <tr>
                                     <th scope="col">Id</th>
@@ -49,7 +71,7 @@ export default function ShowProduct() {
                                 <tbody>
                                 {products.map((element, index) => (
                                     <tr key={index}>
-                                        <th scope="row">{element.id}</th>
+                                        <th scope="row">{element.id.substring(0, 3)}</th>
                                         <td>{element.owner}</td>
                                         <td>{element.name}</td>
                                         <td>{element.token_id}</td>

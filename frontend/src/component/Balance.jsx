@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/navbar.css';
-import { FaUser } from 'react-icons/fa';
+// import { FaUser } from 'react-icons/fa';
 import { useAuthStore } from '../store/auth.js';
 import useAxios from '../utils/useAxios.js';
 
