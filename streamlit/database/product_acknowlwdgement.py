@@ -2,7 +2,6 @@ import psycopg2
 import uuid
 from faker import Faker
 
-# Connect to your PostgreSQL database
 conn = psycopg2.connect(
     dbname="supplychain",
     user="postgres",
@@ -12,20 +11,18 @@ conn = psycopg2.connect(
 )
 cur = conn.cursor()
 
-# Create an instance of Faker
 fake = Faker()
 
-# Get a list of product instance IDs and vendor IDs
 cur.execute("SELECT id FROM products_productinstance")
 instance_ids = [row[0] for row in cur.fetchall()]
 
 cur.execute("SELECT id FROM accounts_vendor")
 vendor_ids = [row[0] for row in cur.fetchall()]
 
-# Calculate the number of acknowledgements needed (7% of instance_ids)
+# Calculate the number of acknowledgements needed (7% of instance_ids ps. I chose it randomly)
 num_acknowledgements = int(0.07 * len(instance_ids))
 
-# Generate random acknowledgements
+# Generate random acknowledgements so that some products travel more than one hands in the supply chain ... 
 for _ in range(num_acknowledgements):
     acknowledgement_id = str(uuid.uuid4())[:32]
     instance_id = fake.random_element(elements=instance_ids)
@@ -38,7 +35,6 @@ for _ in range(num_acknowledgements):
         (acknowledgement_id, created_at, instance_id, vendor_id)
     )
 
-# Commit changes and close connection
 conn.commit()
 cur.close()
 conn.close()
