@@ -118,6 +118,8 @@ class AcknowledgementGenericAPIView(ObjectLevelPermissionMixin, generics.Generic
         vendor_id = request.data.get('owner', None)
         vendor = Vendor.objects.get(id=vendor_id)
         instance_id = request.data.get('instance', None)
+        print(instance_id)
+        print(vendor_id)
         instance = ProductInstance.objects.get(id=instance_id)
         owner = Vendor.objects.get(id=instance.owner_id)
         batch = ProductBatch.objects.get(id=instance.batch_id)
