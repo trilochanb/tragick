@@ -28,6 +28,6 @@ class ProductInstance(models.Model):
 class Acknowledgement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     instance = models.ForeignKey(ProductInstance, on_delete=models.CASCADE)
-    vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 

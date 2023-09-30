@@ -20,7 +20,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['last_name'] = user.last_name
         token['vendor_name'] = user.vendor_name
         token['balance'] = user.balance
-        print(token)
 
         return token
 

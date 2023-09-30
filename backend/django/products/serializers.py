@@ -54,7 +54,7 @@ class AcknowledgementSerializer(serializers.ModelSerializer):
         fields = (
                 "id",
                 "instance",
-                "vendor",
+                "owner",
                 "created_at"
                 )
 

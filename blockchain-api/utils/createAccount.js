@@ -8,6 +8,7 @@ const getClient = require("./hederaClient");
 async function createAccount() {
     client = getClient();
     const privateKey = PrivateKey.generate();
+	console.log(privateKey);
     const publicKey = privateKey.publicKey;
 
     const account = await new AccountCreateTransaction()
