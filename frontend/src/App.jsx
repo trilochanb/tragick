@@ -13,6 +13,7 @@ import Navbar from './component/Navbar';
 import Dashboard from './component/Dashboard';
 import Product from './component/Product';
 import Ackno from './component/Ackno';
+import CreateInstance from './component/CreateInstance';
 import Notfound from './component/Notfound';
 
 
@@ -38,6 +39,7 @@ function App() {
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/product" element={<Product />} />
                     <Route path="/ackno" element={<Ackno />} />
+                    <Route path="/instance" element={<CreateInstance />} />
                     <Route path="*" element={<Notfound   />} />
                     
                 </Routes>
