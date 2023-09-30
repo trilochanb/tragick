@@ -109,7 +109,7 @@ import { QrScanner } from '@yudiel/react-qr-scanner';
 import Sidebar from './Sidebar';
 import ShowBalance from './Balance';
 import React, { useState, useRef } from 'react';
-import ScanModal from './ScanModal';
+import BuyModal from './BuyInstance';
 
 export const CreateAcknowledgement = () => {
     const [scanResult, setScanResult] = useState(null);
@@ -120,23 +120,22 @@ export const CreateAcknowledgement = () => {
         if (result) {
             setScanResult(result);
 
-            // Stop the video stream
-
-            if (qrScannerRef.current) {
-                const mediaStream = qrScannerRef.current.getMediaStream();
-                if (mediaStream) {
-                    const tracks = mediaStream.getTracks();
-                    tracks.forEach((track) => {
-                        track.stop();
-                    });
-                }
-            }
+            // // Stop the video stream
+            // if (qrScannerRef.current) {
+            //     const mediaStream = qrScannerRef.current.getMediaStream();
+            //     if (mediaStream) {
+            //         const tracks = mediaStream.getTracks();
+            //         tracks.forEach((track) => {
+            //             track.stop();
+            //         });
+            //     }
+            // }
         }
     };
 
-    if (scanResult) {
-        return <ScanModal />;
-    }
+    const handleCloseModal = () => {
+        setScanResult(null);
+    };
 
     return (
         <div className="container-fluid">
@@ -146,16 +145,21 @@ export const CreateAcknowledgement = () => {
                 </div>
                 <div className="col-md-10 d-flex flex-column">
                     <ShowBalance className="align-self-start" />
-                    <div className="container" style={{ height: '300px' }}>
-                        {' '}
-                        {/* Set the desired height here */}
-                        <QrScanner
-                            className="mw-100"
-                            onDecode={handleScan}
-                            onError={(error) => setError(error?.message)}
-                            ref={qrScannerRef}
+                    {scanResult ? (
+                        <BuyModal
+                            modalContent={scanResult}
+                            onClose={handleCloseModal}
                         />
-                    </div>
+                    ) : (
+                        <div className="container" style={{ width: '100%' }}>
+                            <QrScanner
+                                className="w-100"
+                                onDecode={handleScan}
+                                onError={(error) => setError(error?.message)}
+                                ref={qrScannerRef}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

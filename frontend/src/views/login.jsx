@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { login } from '../utils/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/login.css';
 import loginImage from '../images/singup.png';
-import axios from 'axios';
-
+// import axios from 'axios';
+// import { Link } from 'react-router-dom';
 const Login = () => {
     const navigate = useNavigate();
 
@@ -120,7 +120,7 @@ const Login = () => {
                         </form>
                     </div>
                     <div
-                        className="col-md-6 d-flex align-items-center justify-content-center"
+                        className="col-md-6 d-flex align-items-center justify-content-center flex-column"
                         id="login-image-container"
                     >
                         <img
@@ -128,6 +128,7 @@ const Login = () => {
                             alt="login image"
                             id="login-image"
                         />
+                        <Link to={'/register'}>Don't have account</Link>
                     </div>
                 </div>
             </div>

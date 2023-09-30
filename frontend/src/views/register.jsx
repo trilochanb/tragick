@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { register } from '../utils/auth';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
 import '../styles/register.css';
 import { MapContainer, TileLayer, useMapEvents, Marker } from 'react-leaflet';
@@ -281,7 +281,7 @@ function Register() {
                         </form>
                     </div>
                     <div
-                        className="col-md-6 d-flex align-items-center justify-content-center"
+                        className="col-md-6 d-flex align-items-center justify-content-center flex-column"
                         id="register-image-container"
                     >
                         <MapContainer
@@ -305,6 +305,7 @@ function Register() {
                             />
                             <MapEvents updateLocation={updateLocation} />
                         </MapContainer>
+                        <Link to={'/login'} > Already have account.</Link>
                     </div>
                 </div>
             </div>

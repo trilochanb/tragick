@@ -148,3 +148,10 @@ main {
 .scrollarea {
     overflow-y: auto;
 }
+
+
+.nav-link{
+    color: black;
+    font-size: 20px;
+}
+
