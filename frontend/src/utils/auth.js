@@ -2,10 +2,13 @@ import { useAuthStore } from '../store/auth';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import Cookies from 'js-cookie';
+import { API_BASE_URL } from './constants';
+
+
 
 export const login = async (username, password) => {
     try {
-        const { data, status } = await axios.post('http://192.168.43.106:8000/api/v1/token/', {
+        const { data, status } = await axios.post(`${API_BASE_URL}token/`, {
             username,
             password,
         });
@@ -23,7 +26,7 @@ export const login = async (username, password) => {
 
 export const register = async (first_name, last_name,username , email , vendor_name , location_lat , location_long , password , password2) => {
     try {
-        const { data } = await axios.post('http://192.168.43.106:8000/api/v1/register/', {
+        const { data } = await axios.post(` ${API_BASE_URL}register/`, {
             first_name, last_name,username , email , vendor_name , location_lat , location_long , password , password2
         });
         await login(username, password);
@@ -78,7 +81,7 @@ export const setAuthUser = (access_token, refresh_token) => {
 
 export const getRefreshToken = async () => {
     const refresh_token = Cookies.get('refresh_token');
-    const response = await axios.post('http://192.168.43.106:8000/api/v1/token/refresh/', {
+    const response = await axios.post(` ${API_BASE_URL}token/refresh/`, {
         refresh: refresh_token,
     });
     return response.data;

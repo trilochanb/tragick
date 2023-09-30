@@ -3,7 +3,10 @@ import { register } from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
 import '../styles/register.css';
-import registerImage from '../images/singup.png';
+import { MapContainer, TileLayer, useMapEvents, Marker } from 'react-leaflet';
+import L from 'leaflet';
+import markerIcon from 'leaflet/dist/images/marker-icon.png';
+import 'leaflet/dist/leaflet.css';
 
 function Register() {
     let name, value;
@@ -13,8 +16,8 @@ function Register() {
         username: '',
         email: '',
         vendor_name: '',
-        location_lat: '',
-        location_long: '',
+        location_lat: 28.3949,
+        location_long: 84.124,
         password: '',
         password2: '',
     });
@@ -68,50 +71,26 @@ function Register() {
             resetForm();
         }
     };
-    
 
+    const MapEvents = ({ updateLocation }) => {
+        useMapEvents({
+            click(e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+                updateLocation(lat, lng);
+            },
+        });
+        return null;
+    };
+
+    const updateLocation = (lat, long) => {
+        setUser({
+            ...user,
+            location_lat: lat,
+            location_long: long,
+        });
+    };
     return (
-        // <section>
-        //     <form onSubmit={handleSubmit}>
-        //         <h1>Register</h1>
-        //         <hr />
-        //         <div>
-        //             <label htmlFor="username">Username</label>
-        //             <input
-        //                 type="text"
-        //                 id="username"
-        //                 onChange={(e) => setUsername(e.target.value)}
-        //                 placeholder="Username"
-        //                 required
-        //             />
-        //         </div>
-        //         <div>
-        //             <label htmlFor="password">Password</label>
-        //             <input
-        //                 type="password"
-        //                 id="password"
-        //                 onChange={(e) => setPassword(e.target.value)}
-        //                 placeholder="Password"
-        //                 required
-        //             />
-        //         </div>
-        //         <div>
-        //             <label htmlFor="confirm-password">Confirm Password</label>
-        //             <input
-        //                 type="password"
-        //                 id="confirm-password"
-        //                 onChange={(e) => setPassword2(e.target.value)}
-        //                 placeholder="Confirm Password"
-        //                 required
-        //             />
-        // <p>
-        //     {password2 !== password ? 'Passwords do not match' : ''}
-        // </p>
-        //         </div>
-        //         <button type="submit">Register</button>
-        //     </form>
-        // </section>
-
         <>
             <div
                 className="container-fluid d-flex justify-content-center align-items-center"
@@ -241,48 +220,6 @@ function Register() {
                                     Looks good!
                                 </div>
                             </div>
-                            <div className="col-md-10 mt-4">
-                                <label
-                                    htmlFor="validationCustom01"
-                                    className="form-label"
-                                >
-                                    Location-location_lat:
-                                </label>
-                                <input
-                                    type="number"
-                                    name="location_lat"
-                                    className="form-control"
-                                    id="validationCustom05"
-                                    value={user.location_lat}
-                                    autoComplete="off"
-                                    onChange={handelOnChange}
-                                    required
-                                />
-                                <div className="valid-feedback">
-                                    Looks good!
-                                </div>
-                            </div>
-                            <div className="col-md-10 mt-4">
-                                <label
-                                    htmlFor="validationCustom01"
-                                    className="form-label"
-                                >
-                                    Location-longutitude:
-                                </label>
-                                <input
-                                    type="number"
-                                    name="location_long"
-                                    className="form-control"
-                                    id="validationCustom06"
-                                    value={user.location_long}
-                                    autoComplete="off"
-                                    onChange={handelOnChange}
-                                    required
-                                />
-                                <div className="valid-feedback">
-                                    Looks good!
-                                </div>
-                            </div>
 
                             <div className="col-md-10 mt-4">
                                 <label
@@ -347,11 +284,27 @@ function Register() {
                         className="col-md-6 d-flex align-items-center justify-content-center"
                         id="register-image-container"
                     >
-                        <img
-                            src={registerImage}
-                            alt="register image"
-                            id="register-image"
-                        />
+                        <MapContainer
+                            center={[user.location_lat, user.location_long]}
+                            zoom={10}
+                            scrollWheelZoom={true}
+                        >
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            <Marker
+                                position={[
+                                    user.location_lat,
+                                    user.location_long,
+                                ]}
+                                icon={L.icon({
+                                    iconUrl: markerIcon,
+                                    iconSize: [20, 30],
+                                })}
+                            />
+                            <MapEvents updateLocation={updateLocation} />
+                        </MapContainer>
                     </div>
                 </div>
             </div>

@@ -12,6 +12,9 @@
     width: 80vw;
     box-shadow: 2px 2px 4px grey;
     min-height: 60vh;
-    /* background-color: rgb(224, 212, 212); */
-    /* background-color: rgb(233, 229, 220); */
+}
+
+.leaflet-container{
+    height: 50vh;
+    width: 50vw;
 }
